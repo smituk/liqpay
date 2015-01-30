@@ -1,7 +1,35 @@
+/**
+ * Liqpay Payment Module
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category        LiqPay
+ * @package         smituk/liqpay
+ * @version         3.0
+ * @author          Liqpay
+ * @copyright       Copyright (c) 2014 Liqpay
+ * @license         http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ *
+ * EXTENSION INFORMATION
+ *
+ * LIQPAY API       https://www.liqpay.com/ru/doc
+ * Author website   http://stam.at/
+ */
+ 
 var JSON = require('JSON2');
 var crypto = require('crypto');
 var sha1 = crypto.createHash('sha1');
 
+/**
+ * Constructor.
+ *
+ * @param string $public_key
+ * @param string $private_key
+ */
 var liqpay = function(public_key, private_key) {
   this.public_key = public_key;
   this.private_key = private_key;
@@ -30,7 +58,15 @@ var encrypt = function(params) {
     };
 };
 
-liqpay.prototype.valid_sign = function(params) {
+liqpay.prototype.cnb_signature = function(params) {
+    return encrypt(params).signature;
+};
+
+liqpay.prototype.cnb_form = function(params) {
+    
+};
+
+liqpay.prototype.str_to_sign = function(params) {
     var str = [
         this.private_key,
         params.amount || '',
